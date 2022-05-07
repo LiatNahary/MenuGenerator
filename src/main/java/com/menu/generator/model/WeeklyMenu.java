@@ -1,9 +1,9 @@
 package com.menu.generator.model;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.Arrays;
 
 public class WeeklyMenu {
+
     private String[] weeklyRecipes;
 
     public WeeklyMenu(String[] weeklyRecipes) {
@@ -23,18 +23,18 @@ public class WeeklyMenu {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WeeklyMenu that = (WeeklyMenu) o;
-        return Objects.equals(weeklyRecipes, that.weeklyRecipes);
+        return Arrays.equals(weeklyRecipes, that.weeklyRecipes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(weeklyRecipes);
+        return Arrays.hashCode(weeklyRecipes);
     }
 
     @Override
     public String toString() {
         return "WeeklyMenu{" +
-                "weeklyRecipes=" + weeklyRecipes +
+                "weeklyRecipes=" + Arrays.toString(weeklyRecipes) +
                 '}';
     }
 }

@@ -1,14 +1,10 @@
 package com.menu.generator.service;
 
-
 import com.menu.generator.model.WeeklyMenu;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class MenuGenerator {
@@ -21,12 +17,7 @@ public class MenuGenerator {
         return file.list();
     }
 
-    private String randomElement(String[] allCategories) {
-        int randIdx = ThreadLocalRandom.current().nextInt(allCategories.length);
-        return allCategories[randIdx];
-    }
-
-    private boolean doseContainCategory(String[] categoryList, String Category) {
+    private boolean doesContainCategory(String[] categoryList, String Category) {
         return Arrays.asList(categoryList).contains(Category);
     }
 
@@ -36,8 +27,8 @@ public class MenuGenerator {
         int i = 0;
         while (i < categoryList.length) {
 
-            String category = randomElement(allCategories);
-            if (!doseContainCategory(categoryList, category)) {
+            String category = RandomUtils.randomElement(allCategories);
+            if (!doesContainCategory(categoryList, category)) {
                 categoryList[i] = category;
                 i++;
             }
@@ -47,14 +38,12 @@ public class MenuGenerator {
     }
 
 
-
     private String getPathToRecipes(String category) {
-        String pathToRecipe = (pathToCategories + "/" + (category));
-        return pathToRecipe;
+        return (pathToCategories + "/" + (category));
     }
 
 
-    private String[] weeklyMenuGenerator() {
+    private String[] generateWeeklyMenu() {
         String[] categoryList = weeklyCategoryListGenerator();
         String[] menu = new String[NUM_OF_DAYS_IN_WEEK];
 
@@ -62,13 +51,13 @@ public class MenuGenerator {
             String category = categoryList[categoryIndex];
             String pathToRecipes = getPathToRecipes(category);
             String[] catgoryRecipes = getElementsInPath(pathToRecipes);
-            menu[categoryIndex] = randomElement (catgoryRecipes);
+            menu[categoryIndex] = RandomUtils.randomElement(catgoryRecipes);
         }
         return menu;
     }
 
-    public WeeklyMenu composeWeeklyMenu(){
-        WeeklyMenu weeklyMenu = new WeeklyMenu(weeklyMenuGenerator());
-        return weeklyMenu;
+    public WeeklyMenu composeWeeklyMenu() {
+        String[] generatedMenu = generateWeeklyMenu();
+        return new WeeklyMenu(generatedMenu);
     }
 }

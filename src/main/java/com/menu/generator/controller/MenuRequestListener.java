@@ -14,10 +14,9 @@ public class MenuRequestListener {
     @Autowired
     private MenuGenerator menuGenerator;
 
-
     @GetMapping(value = "weekly", produces = "application/json")
     public WeeklyMenu getWeeklyMenu(){
         return menuGenerator.composeWeeklyMenu();
-
     }
+
 }
