@@ -1,6 +1,7 @@
 package com.menu.generator.service;
 
 import com.menu.generator.model.WeeklyMenu;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -10,7 +11,9 @@ import java.util.Arrays;
 public class MenuGenerator {
 
     public static final int NUM_OF_DAYS_IN_WEEK = 5;
-    String pathToCategories = "C:/Users/User/Documents/javaProject/category";
+    @Value("${my.fileLocation}")
+    private String pathToCategories;
+
 
     private String[] getElementsInPath(String path) {
         File file = new File(path);
